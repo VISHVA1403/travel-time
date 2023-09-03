@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+
+{% block content%}
+<div>
+    <form>
+        <table>
+        {% for detail in details %}
+        <tr>
+            <h4>{{detail.id}}</h4>
+            <a href="{% url 'profile' detail.id %}">{{detail.username}}</a>
+            
+        </tr>
+        {% endfor %}
+        </table>
+    </form>
+</div>
+{% endblock %}
