@@ -92,3 +92,5 @@ def userlogout(request):
 def Userdetailapi(request):
     datas = User.objects.all()
     return JsonResponse({'data':"ihijojweij"})
+
+print("hello")
