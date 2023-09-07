@@ -1,8 +1,8 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-
+import json
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
@@ -89,4 +89,6 @@ def userlogout(request):
     logout(request)
     return redirect('login')
 
-print("hello")
+def Userdetailapi(request):
+    datas = User.objects.all()
+    return JsonResponse({'data':"ihijojweij"})

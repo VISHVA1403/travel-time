@@ -10,5 +10,6 @@ urlpatterns =[
     path('profilecreate',views.EditProfile,name="create_profile"),
     path('create-user',views.CreateUser,name = 'create-user'),
     path('loginuser',views.userlogin,name='login'),
-    path('logoutuser',views.userlogout,name='logout')
+    path('logoutuser',views.userlogout,name='logout'),
+    path("Detailapi",views.Userdetailapi,name='firstapi'),
 ]
