@@ -94,3 +94,4 @@ def Userdetailapi(request):
     return JsonResponse({'data':"ihijojweij"})
 
 print("hello")
+print("hii")
