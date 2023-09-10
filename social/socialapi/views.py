@@ -93,5 +93,3 @@ def Userdetailapi(request):
     datas = User.objects.all()
     return JsonResponse({'data':"ihijojweij"})
 
-print("hello")
-print("hi")
