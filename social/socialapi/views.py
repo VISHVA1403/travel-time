@@ -3,6 +3,12 @@
 from rest_framework import generics
 from .models import UserProfile, Post, Comment, Like, Friendship
 from .serializers import UserProfileSerializer, PostSerializer, CommentSerializer, LikeSerializer, FriendshipSerializer
+from django.contrib.auth.models import User
+
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+from django.http import JsonResponse
+import json
 
 class UserProfileAPIView(generics.RetrieveUpdateAPIView):
     queryset = UserProfile.objects.all()
@@ -39,3 +45,39 @@ class FriendshipListCreateAPIView(generics.ListCreateAPIView):
 class FriendshipDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Friendship.objects.all()
     serializer_class = FriendshipSerializer
+
+
+def register_user(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+        
+        if not (username and email and password):
+            return JsonResponse({'error': 'All fields are required'}, status=400)
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        return JsonResponse({'message': 'User registered successfully'}, status=201)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+def login_user(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username')
+        password = data.get('password')
+        
+        if not (username and password):
+            return JsonResponse({'error': 'Username and password are required'}, status=400)
+
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            token, created = Token.objects.get_or_create(user=user)
+            return JsonResponse({'token': token.key}, status=200)
+        else:
+            return JsonResponse({'error': 'Invalid credentials'}, status=401)
+    else:
+        return JsonResponse({'error': 'Invalid request method'}, status=405)
