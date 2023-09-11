@@ -1,7 +1,7 @@
 # socialapi/urls.py
 
 from django.urls import path
-from .views import UserProfileAPIView, PostListCreateAPIView, PostDetailAPIView,login_user,CommentListCreateAPIView,register_user, CommentDetailAPIView, LikeListCreateAPIView, LikeDetailAPIView, FriendshipListCreateAPIView, FriendshipDetailAPIView
+from .views import UserProfileAPIView, PostListCreateAPIView, PostDetailAPIView,LoginAPIView,RegisterAPIView,CommentListCreateAPIView, CommentDetailAPIView, LikeListCreateAPIView, LikeDetailAPIView, FriendshipListCreateAPIView, FriendshipDetailAPIView
 
 urlpatterns = [
     path('profile/<int:pk>/', UserProfileAPIView.as_view(), name='profile-api'),
@@ -13,6 +13,6 @@ urlpatterns = [
     path('like/<int:pk>/', LikeDetailAPIView.as_view(), name='like-detail-api'),
     path('friendship/', FriendshipListCreateAPIView.as_view(), name='friendship-list-create-api'),
     path('friendship/<int:pk>/', FriendshipDetailAPIView.as_view(), name='friendship-detail-api'),
-    path('api/register/', register_user, name='register_user'),
-    path('api/login/', login_user, name='login_user'),
+    path('register/',RegisterAPIView.as_view(), name='register_user'),
+    path('login/',LoginAPIView.as_view(),name='login_user'),
 ]
