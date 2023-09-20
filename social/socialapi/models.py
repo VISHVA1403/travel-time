@@ -15,6 +15,7 @@ class UserProfile(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
+    post = models.ImageField(upload_to='Postes',blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
     location = models.CharField(max_length=100, blank=True, null=True) # Location name
