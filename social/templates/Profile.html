@@ -1,17 +1,82 @@
-{% extends 'base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-{% block content%}
-<div>
-    <form>
-        <table>
-        {% for detail in details %}
-        <tr>
-            <h4>{{detail.id}}</h4>
-            <a href="{% url 'profile' detail.id %}">{{detail.username}}</a>
-            
-        </tr>
-        {% endfor %}
-        </table>
-    </form>
-</div>
-{% endblock %}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .profile {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            margin-bottom: 30px;
+        }
+
+        .profile-info p {
+            margin: 8px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .edit-profile-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-profile-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <img class="profile-img" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}E:\Travel\travel-time\social\media\defaultuser.png{% endif %}" alt="Profile Picture">
+            <div class="profile-info">
+                <p><strong>Username:</strong> {{ user_profile.user.username }}</p>
+                <p><strong>Email:</strong> {{ user_profile.user.email }}</p>
+                <p><strong>Bio:</strong> {{ user_profile.bio }}</p>
+                <p><strong>Followers:</strong> {{ user_profile.followers.count }}</p>
+            </div>
+            <a href="{% url 'update_profile' %}" class="edit-profile-btn">Edit Profile</a>
+        </div>
+    </div>
+</body>
+</html>

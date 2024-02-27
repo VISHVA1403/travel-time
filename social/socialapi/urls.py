@@ -1,18 +1,18 @@
-# socialapi/urls.py
-
 from django.urls import path
-from .views import UserProfileAPIView, PostListCreateAPIView, PostDetailAPIView,LoginAPIView,RegisterAPIView,CommentListCreateAPIView, CommentDetailAPIView, LikeListCreateAPIView, LikeDetailAPIView, FriendshipListCreateAPIView, FriendshipDetailAPIView
+from .views import RegisterView, LoginView, UserProfileView, PostCreateView, PostDetailView, CommentCreateView, LikeCreateView, FriendshipCreateView, UserProfileUpdateView, LogoutView ,HomeView,create_profile
 
 urlpatterns = [
-    path('profile/<int:pk>/', UserProfileAPIView.as_view(), name='profile-api'),
-    path('post/', PostListCreateAPIView.as_view(), name='post-list-create-api'),
-    path('post/<int:pk>/', PostDetailAPIView.as_view(), name='post-detail-api'),
-    path('comment/', CommentListCreateAPIView.as_view(), name='comment-list-create-api'),
-    path('comment/<int:pk>/', CommentDetailAPIView.as_view(), name='comment-detail-api'),
-    path('like/', LikeListCreateAPIView.as_view(), name='like-list-create-api'),
-    path('like/<int:pk>/', LikeDetailAPIView.as_view(), name='like-detail-api'),
-    path('friendship/', FriendshipListCreateAPIView.as_view(), name='friendship-list-create-api'),
-    path('friendship/<int:pk>/', FriendshipDetailAPIView.as_view(), name='friendship-detail-api'),
-    path('register/',RegisterAPIView.as_view(), name='register_user'),
-    path('login/',LoginAPIView.as_view(),name='login_user'),
+    path('',HomeView.as_view(),name="home"),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('create-profile/',create_profile,name= "createprofile"),
+    path('profile/', UserProfileView.as_view(), name='profile'),
+    path('profile/update/', UserProfileUpdateView.as_view(), name='update_profile'),
+    path('post/create/', PostCreateView.as_view(), name='create_post'),
+    path('post/<int:post_id>/', PostDetailView.as_view(), name='post_detail'),
+    path('comment/<int:post_id>/', CommentCreateView.as_view(), name='comment_create'),
+    path('post/<int:post_id>/like/create/', LikeCreateView.as_view(), name='create_like'),
+    path('friendship/create/', FriendshipCreateView.as_view(), name='create_friendship'),
+    # Add more URL patterns as needed
 ]

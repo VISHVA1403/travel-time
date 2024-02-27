@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .post-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .post-info p {
+            margin: 8px 0;
+        }
+
+        .post-image {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .error-msg {
+            color: red;
+            margin-top: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Post Detail</h1>
+        <div class="post-info">
+            <img src="{{ post.post_image.url }}" alt="Post Image" class="post-image">
+            <p><strong>Content:</strong> {{ post.content }}</p>
+            <p><strong>Created At:</strong> {{ post.created_at }}</p>
+            <!-- Add more post details here as needed -->
+        </div>
+        <form action="{% url 'create_like' post_id=post.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Like</button>
+        </form>
+        <form action="{% url 'create_friendship' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Follow</button>
+        </form>
+        <!-- <form action="{% url 'comment_create' post_id=post.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Comment</button> -->
+    </form>
+    </div>
+</body>
+</html>

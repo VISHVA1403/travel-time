@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+        }
+
+        .post-content {
+            font-size: 18px;
+        }
+
+        .post-author {
+            font-style: italic;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Our Site</h1>
+        <h2>Latest Posts</h2>
+        <ul>
+            {% for post in posts %}
+            <li>
+                <div class="post-content">{{ post.content }}</div>
+                <div class="post-author">Posted by {{ post.user.username }}</div>
+                <form action="{% url 'create_like' post_id=post.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Like</button>
+                </form>
+                <form action="{% url 'create_friendship' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Follow</button>
+                </form>
+                <!-- <form action="{% url 'comment_create' post_id=post.id %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Comment</button>
+            </form> -->
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
